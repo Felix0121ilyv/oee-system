@@ -1,0 +1,71 @@
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
+
+async function main() {
+  // Usuarios
+  await prisma.user.createMany({
+    data: [
+      { name: 'Admin', email: 'admin@example.com', password: '1234', role: 'ADMIN' },
+      { name: 'Supervisor', email: 'supervisor@example.com', password: '1234', role: 'SUPERVISOR' },
+      { name: 'Operator', email: 'operator@example.com', password: '1234', role: 'OPERATOR' }
+    ]
+  });
+
+  // Máquinas
+  const machines = await prisma.machine.createMany({
+    data: [
+      { name: 'Máquina A', area: 'Producción', idealSpeed: 50, plannedTime: 480 },
+      { name: 'Máquina B', area: 'Producción', idealSpeed: 45, plannedTime: 480 },
+      { name: 'Máquina C', area: 'Empaque', idealSpeed: 60, plannedTime: 480 }
+    ]
+  });
+
+  // Configuración del sistema
+  await prisma.systemConfig.create({
+    data: {
+      oeeGoal: 0.85,
+      stopCostPerMin: 50,
+      defectCostPerUnit: 15,
+      productionValuePerUnit: 25
+    }
+  });
+
+  // Producción y paradas de ejemplo
+  const users = await prisma.user.findMany();
+  const allMachines = await prisma.machine.findMany();
+
+  for (let machine of allMachines) {
+    for (let user of users) {
+      await prisma.productionRecord.create({
+        data: {
+          machineId: machine.id,
+          userId: user.id,
+          date: new Date(),
+          shift: 'MORNING',
+          totalProduction: Math.floor(Math.random() * 1000),
+          defects: Math.floor(Math.random() * 50),
+          operativeTime: 400
+        }
+      });
+
+      await prisma.stoppage.create({
+        data: {
+          machineId: machine.id,
+          userId: user.id,
+          reason: 'Falla mecánica',
+          type: 'UNPLANNED',
+          duration: 15,
+          date: new Date(),
+          observations: 'Parada de prueba'
+        }
+      });
+    }
+  }
+}
+
+main()
+  .catch(e => console.error(e))
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
