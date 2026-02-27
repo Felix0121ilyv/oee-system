@@ -4,7 +4,7 @@ import {
     LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid,
     Tooltip, ResponsiveContainer, Legend
 } from 'recharts';
-import { calculateOEE, formatCurrency, getOEEColor } from '@/lib/oee';
+import { calculateOEE, formatCurrency, getOEEColor } from '../../../lib/oee';
 
 interface Machine { id: string; name: string; idealSpeed: number; plannedTime: number; }
 interface ProductionRecord { machineId: string; totalProduction: number; defects: number; operativeTime: number; date: string; shift: string; }
@@ -216,3 +216,4 @@ export default function ReportsPage() {
         </div>
     );
 }
+
