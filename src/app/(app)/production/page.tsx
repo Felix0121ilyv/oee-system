@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect, useCallback } from 'react';
-import { calculateOEE, formatPercent, formatCurrency, getOEEColor } from '@/lib/oee';
+import { calculateOEE, formatPercent, formatCurrency, getOEEColor } from '../../../lib/oee';
 
 interface Machine { id: string; name: string; area: string; idealSpeed: number; plannedTime: number; }
 interface ProductionRecord {
@@ -191,3 +191,4 @@ export default function ProductionPage() {
         </div>
     );
 }
+
