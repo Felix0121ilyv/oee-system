@@ -1,15 +1,17 @@
-export const dynamic = "force-dynamic";
-import Sidebar from '../../components/Sidebar';
-import { ReactNode } from 'react';
+'use client';
 
-export default function AppLayout({ children }: { children: ReactNode }) {
-    return (
-        <div className="app-layout">
-            <Sidebar />
-            <main className="main-content">
-                {children}
-            </main>
-        </div>
-    );
+import { SessionProvider } from "next-auth/react";
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="es">
+      <body>
+        <SessionProvider>{children}</SessionProvider>
+      </body>
+    </html>
+  );
 }
-
