@@ -4,12 +4,12 @@ import { getServerSession } from 'next-auth';
 import { authOptions } from '../api/auth/[...nextauth]/route';
 import dynamic from 'next/dynamic';
 
-// Import dinámico del Sidebar - ESTA ES LA CLAVE
-const Sidebar = dynamic(() => import('../../components/Sidebar'), {
-  ssr: false, // Previene el error de useSession() durante el build
+// Import dinámico del Sidebar - ESTO EVITA EL ERROR
+const Sidebar = dynamic(() => import('../../../components/Sidebar'), {
+  ssr: false, // 👈 Impide que se renderice en el servidor durante el build
   loading: () => (
+    // Placeholder visual mientras se carga en el cliente
     <div className="w-64 bg-gray-900 h-screen animate-pulse">
-      {/* Placeholder mientras carga */}
       <div className="p-4 space-y-4">
         <div className="h-8 bg-gray-700 rounded"></div>
         <div className="h-8 bg-gray-700 rounded"></div>
@@ -24,7 +24,7 @@ export default async function AppLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // Verificación de sesión en servidor (esto sí puede ser async)
+  // ✅ Esto sigue siendo seguro porque es Server Component
   const session = await getServerSession(authOptions);
   
   if (!session) {
@@ -33,9 +33,7 @@ export default async function AppLayout({
 
   return (
     <div className="flex h-screen bg-gray-100">
-      {/* Sidebar ahora se carga solo en cliente */}
-      <Sidebar />
-      
+      <Sidebar /> {/* Ahora se carga solo en el cliente */}
       <main className="flex-1 overflow-auto">
         {children}
       </main>
