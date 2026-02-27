@@ -1,7 +1,7 @@
 'use client';
 import { useState, useEffect, useCallback } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell, PieChart, Pie } from 'recharts';
-import { calculateOEE, calculateEconomicLosses, formatCurrency, getOEEColor } from '@/lib/oee';
+import { calculateOEE, calculateEconomicLosses, formatCurrency, getOEEColor } from '../../../lib/oee';
 
 interface Machine { id: string; name: string; area: string; idealSpeed: number; plannedTime: number; }
 interface ProductionRecord { id: string; machineId: string; totalProduction: number; defects: number; operativeTime: number; date: string; }
@@ -205,3 +205,4 @@ export default function LossesPage() {
         </div>
     );
 }
+
