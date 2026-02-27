@@ -4,7 +4,7 @@ import {
     LineChart, Line, BarChart, Bar, PieChart, Pie, Cell,
     XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend
 } from 'recharts';
-import { formatCurrency, getOEEColor } from '@/lib/oee';
+import { formatCurrency, getOEEColor } from '../../../lib/oee';
 
 interface DashboardData {
     globalOEE: number;
@@ -253,4 +253,5 @@ export default function DashboardPage() {
             </div>
         </div>
     );
+
 }
