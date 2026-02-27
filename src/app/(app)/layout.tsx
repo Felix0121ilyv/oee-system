@@ -1,17 +1,18 @@
-'use client';
+export const dynamic = "force-dynamic";
 
-import { SessionProvider } from "next-auth/react";
+import dynamicImport from "next/dynamic";
+import { ReactNode } from "react";
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+/* 👇 Sidebar SOLO cliente (NO SSR) */
+const Sidebar = dynamicImport(() => import("../../components/Sidebar"), {
+  ssr: false,
+});
+
+export default function AppLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="es">
-      <body>
-        <SessionProvider>{children}</SessionProvider>
-      </body>
-    </html>
+    <div className="app-layout">
+      <Sidebar />
+      <main className="main-content">{children}</main>
+    </div>
   );
 }
