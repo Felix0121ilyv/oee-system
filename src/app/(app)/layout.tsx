@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import Sidebar from '../../components/Sidebar';
 import { ReactNode } from 'react';
 
@@ -11,3 +12,4 @@ export default function AppLayout({ children }: { children: ReactNode }) {
         </div>
     );
 }
+
