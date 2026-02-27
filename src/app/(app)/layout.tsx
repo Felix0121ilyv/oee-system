@@ -1,18 +1,15 @@
-export const dynamic = "force-dynamic";
+import Providers from './Providers';
 
-import dynamicImport from "next/dynamic";
-import { ReactNode } from "react";
-
-/* 👇 Sidebar SOLO cliente (NO SSR) */
-const Sidebar = dynamicImport(() => import("../../components/Sidebar"), {
-  ssr: false,
-});
-
-export default function AppLayout({ children }: { children: ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <div className="app-layout">
-      <Sidebar />
-      <main className="main-content">{children}</main>
-    </div>
+    <html lang="es">
+      <body>
+        <Providers>{children}</Providers>
+      </body>
+    </html>
   );
 }
