@@ -1,7 +1,7 @@
 // src/app/(app)/layout.tsx
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../api/auth/[...nextauth]/route';
+import { authOptions } from '../../api/auth/[...nextauth]/route';
 import dynamic from 'next/dynamic';
 
 // Import dinámico del Sidebar - ESTO EVITA EL ERROR
@@ -40,4 +40,5 @@ export default async function AppLayout({
     </div>
   );
 }
+
 
